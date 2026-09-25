@@ -1,0 +1,345 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./sigma.db"
+}
+
+model UserProfile {
+  id              Int      @id @default(1)
+  name            String   @default("Operador")
+  dailyGoalMin    Int      @default(60)
+  totalXp         Int      @default(0)
+  level           Int      @default(1)
+  currentStreak   Int      @default(0)
+  bestStreak      Int      @default(0)
+  lastStreakDate  String?
+  totalStudyMin   Int      @default(0)
+  totalQuestions  Int      @default(0)
+  totalCorrect    Int      @default(0)
+  createdAt       String   @default("")
+  updatedAt       String   @default("")
+}
+
+model AppSettings {
+  id               Int     @id @default(1)
+  theme            String  @default("dark")
+  checkInEnabled   Boolean @default(true)
+  futureTargetDate String  @default("")
+  selectedEditalId Int?
+}
+
+model LifeArea {
+  id          Int     @id @default(autoincrement())
+  name        String
+  slug        String  @unique
+  description String?
+  color       String  @default("#6366f1")
+  icon        String  @default("layers")
+  sortOrder   Int     @default(0)
+  isActive    Boolean @default(true)
+  createdAt   String
+}
+
+model Project {
+  id           Int     @id @default(autoincrement())
+  title        String
+  description  String?
+  lifeAreaId   Int?
+  disciplineId Int?
+  priority     String  @default("MEDIUM")
+  status       String  @default("NOT_STARTED")
+  xpReward     Int     @default(100)
+  dueDate      String?
+  completedAt  String?
+  createdAt    String
+  updatedAt    String
+}
+
+model Quest {
+  id           Int     @id @default(autoincrement())
+  title        String
+  description  String?
+  lifeAreaId   Int?
+  disciplineId Int?
+  projectId    Int?
+  priority     String  @default("MEDIUM")
+  status       String  @default("NOT_STARTED")
+  xpReward     Int     @default(30)
+  dueDate      String?
+  completedAt  String?
+  createdAt    String
+  updatedAt    String
+}
+
+model Habit {
+  id          Int     @id @default(autoincrement())
+  title       String
+  description String?
+  lifeAreaId  Int?
+  xpReward    Int     @default(20)
+  isActive    Boolean @default(true)
+  createdAt   String
+}
+
+model HabitLog {
+  id        Int    @id @default(autoincrement())
+  habitId   Int
+  date      String
+  xpEarned  Int
+  createdAt String
+
+  @@unique([habitId, date])
+}
+
+model Discipline {
+  id                    Int     @id @default(autoincrement())
+  name                  String
+  slug                  String  @unique
+  xp                    Int     @default(0)
+  level                 Int     @default(1)
+  totalResolved         Int     @default(0)
+  totalCorrect          Int     @default(0)
+  lifeAreaId            Int?
+  studyPriority         String  @default("MEDIUM")
+  studyPhase            String  @default("PDF")
+  blockMinutes          Int     @default(60)
+  pdfsTotal             Int     @default(0)
+  pdfsCurrent           Int     @default(0)
+  isInCycle             Boolean @default(true)
+  targetAccuracyPercent Int?
+  cycleRole             String  @default("BASE")
+  cycleState            String  @default("ACTIVE")
+  weightPercent         Int     @default(0)
+  cognitiveGroup        String  @default("LAW")
+  unlockAfterSlug       String?
+  theoryComplete        Boolean @default(false)
+  cycleSortOrder        Int     @default(0)
+  bookmarkLessonCode    String?
+  bookmarkPdfName       String?
+  bookmarkNote          String?
+  createdAt             String
+}
+
+model TargetEdital {
+  id        Int     @id @default(autoincrement())
+  name      String
+  organ     String?
+  examDate  String
+  isActive  Boolean @default(true)
+  notes     String?
+  createdAt String
+}
+
+model EditalDiscipline {
+  id           Int @id @default(autoincrement())
+  editalId     Int
+  disciplineId Int
+  weight       Int @default(1)
+
+  @@unique([editalId, disciplineId])
+}
+
+model StudySession {
+  id           Int     @id @default(autoincrement())
+  startedAt    String
+  endedAt      String?
+  durationSec  Int     @default(0)
+  disciplineId Int?
+  isActive     Boolean @default(false)
+  xpEarned     Int     @default(0)
+}
+
+model QuestionLog {
+  id             Int     @id @default(autoincrement())
+  resolvedCount  Int
+  correctCount   Int
+  disciplineId   Int?
+  topicId        Int?
+  segment        Int?
+  phase          String?
+  sessionId      Int?
+  isSimulado     Boolean @default(false)
+  xpEarned       Int     @default(0)
+  createdAt      String
+}
+
+model StudyCycle {
+  id                  Int     @id @default(autoincrement())
+  name                String
+  editalId            Int?
+  dayCount            Int     @default(8)
+  blocksPerDay        Int     @default(3)
+  currentBlockNumber  Int     @default(1)
+  studyWeekdaysJson   String  @default("{}")
+  reviewDaySlotsJson  String  @default("[3,5,8]")
+  weeklySessions      Int     @default(12)
+  sessionMinutes      Int     @default(50)
+  currentLap          Int     @default(1)
+  weekColorIndex      Int     @default(0)
+  isActive            Boolean @default(true)
+  createdAt           String
+  updatedAt           String
+}
+
+model StudyCycleBlock {
+  id               Int     @id @default(autoincrement())
+  cycleId          Int
+  blockNumber      Int
+  dayNumber        Int
+  slotInDay        Int
+  blockType        String  @default("DISCIPLINE")
+  disciplineId     Int?
+  isManualOverride Boolean @default(false)
+  thematicFocus    String?
+  studyHint        String?
+
+  @@unique([cycleId, blockNumber])
+}
+
+model StudyCycleCompletion {
+  id          Int    @id @default(autoincrement())
+  cycleId     Int
+  blockNumber Int
+  lap         Int
+  weekColor   String
+  completedAt String
+
+  @@unique([cycleId, blockNumber, lap])
+}
+
+model DisciplineTopic {
+  id                      Int     @id @default(autoincrement())
+  disciplineId            Int
+  lessonCode              String  @default("00")
+  name                    String
+  referenceUrl            String?
+  sortOrder               Int     @default(0)
+  weight                  Int     @default(1)
+  totalQuestionsAvailable Int     @default(0)
+  targetAccuracyPercent   Int?
+  totalResolved           Int     @default(0)
+  totalCorrect            Int     @default(0)
+  topicStatus             String  @default("IN_PROGRESS")
+  lastAccuracyPercent     Int?
+  createdAt               String
+}
+
+model TopicSegmentProgress {
+  id       Int @id @default(autoincrement())
+  topicId  Int
+  segment  Int
+  resolved Int @default(0)
+  correct  Int @default(0)
+
+  @@unique([topicId, segment])
+}
+
+model StudyActivityLog {
+  id           Int     @id @default(autoincrement())
+  disciplineId Int
+  topicId      Int?
+  phase        String
+  reference    String
+  date         String
+  quantity     Int     @default(0)
+  correctCount Int     @default(0)
+  isFinished   Boolean @default(false)
+  createdAt    String
+}
+
+model DailyCheckIn {
+  id          Int     @id @default(autoincrement())
+  date        String  @unique
+  missionText String
+  completed   Boolean @default(false)
+  createdAt   String
+}
+
+model XpEvent {
+  id           Int     @id @default(autoincrement())
+  source       String
+  amount       Int
+  metadataJson String  @default("{}")
+  disciplineId Int?
+  createdAt    String
+}
+
+model Achievement {
+  id        Int    @id @default(autoincrement())
+  code      String @unique
+  title     String
+  category  String
+  threshold Int
+  xpReward  Int    @default(0)
+}
+
+model UserAchievement {
+  id            Int    @id @default(autoincrement())
+  achievementId Int
+  unlockedAt    String
+
+  @@unique([achievementId])
+}
+
+model MissionTemplate {
+  id       Int    @id @default(autoincrement())
+  code     String @unique
+  type     String
+  title    String
+  target   Int
+  unit     String
+  xpReward Int
+}
+
+model MissionProgress {
+  id         Int     @id @default(autoincrement())
+  templateId Int
+  periodKey  String
+  current    Int     @default(0)
+  completed  Boolean @default(false)
+  rewarded   Boolean @default(false)
+
+  @@unique([templateId, periodKey])
+}
+
+model MonthlySnapshot {
+  id                Int @id @default(autoincrement())
+  year              Int
+  month             Int
+  studyMinutes      Int @default(0)
+  questionsResolved Int @default(0)
+  xpEarned          Int @default(0)
+
+  @@unique([year, month])
+}
+
+model DailyStats {
+  id                Int    @id @default(autoincrement())
+  date              String @unique
+  studyMinutes      Int    @default(0)
+  questionsResolved Int    @default(0)
+  questionsCorrect  Int    @default(0)
+  xpEarned          Int    @default(0)
+  goalMet           Boolean @default(false)
+}
+
+model Reward {
+  id          Int     @id @default(autoincrement())
+  title       String
+  description String?
+  xpCost      Int     @default(100)
+  isActive    Boolean @default(true)
+  createdAt   String
+  updatedAt   String
+}
+
+model RewardRedemption {
+  id         Int     @id @default(autoincrement())
+  rewardId   Int?
+  title      String
+  xpSpent    Int
+  redeemedAt String
+}

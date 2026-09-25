@@ -1,0 +1,344 @@
+Achei uma excelente ideia unir os três.
+
+Na verdade, os três projetos separados têm um problema: cada um resolve apenas uma parte da motivação.
+
+Se você juntar tudo, cria algo que ataca os três gatilhos psicológicos mais fortes para formação de hábitos:
+
+Progressão (XP e níveis)
+Consistência (streaks)
+Prestação de contas (check-in diário)
+
+O resultado deixa de ser um "app de estudos" e vira um sistema operacional pessoal para concursos.
+
+Nome do Projeto
+
+Algumas ideias:
+
+Mais sério
+Ascensão
+Projeto Perito
+Missão Aprovação
+Operação Alfa
+Protocolo 365
+Estilo inteligência / investigação
+Sentinel
+Vigilant
+Operação Atlas
+Codinome Sigma
+Intelligence Hub
+Estilo RPG
+LevelUp
+QuestLog
+SkillTree
+XP Academy
+Minha favorita
+
+Operação Sigma
+
+Motivos:
+
+Remete a inteligência e investigação
+Serve para qualquer concurso
+Tem identidade forte
+Parece um software profissional
+Objetivo do Sistema
+
+Transformar estudo em um jogo de progresso contínuo.
+
+O usuário não vê apenas horas estudadas.
+
+Ele vê:
+
+Evolução
+Níveis
+Sequências
+Estatísticas
+Metas
+Conquistas
+Stack
+
+Eu faria exatamente assim:
+
+Frontend
+React
+TypeScript
+TailwindCSS
+Shadcn/UI
+
+Motivos:
+
+Você já encontra muito material
+Interface bonita rapidamente
+Fácil integração com IA
+Desktop
+Tauri
+
+Motivos:
+
+Leve
+Consome pouca RAM
+Fácil distribuição
+Excelente para app pessoal
+Banco
+SQLite
+
+Motivos:
+
+Arquivo único
+Sem servidor
+Ideal para uso individual
+ORM
+Prisma
+
+Motivos:
+
+Muito simples
+Ótima integração com SQLite
+Estrutura Geral
+Dashboard
+
+Tela inicial mostrando:
+
+Nível Atual: 14
+
+XP Total:
+8.420
+
+Sequência:
+18 dias
+
+Meta Hoje:
+60 min
+
+Tempo Estudado:
+35 min
+
+Faltam:
+25 min
+Sistema de XP
+Ganhos
+
+1 minuto estudado = 1 XP
+
+Questão resolvida = 3 XP
+
+Questão correta = 5 XP
+
+Simulado realizado = 50 XP
+
+Meta diária concluída = 25 XP
+
+Níveis
+Nível 1 -> 100 XP
+Nível 2 -> 250 XP
+Nível 3 -> 450 XP
+
+Progressão exponencial.
+
+Igual RPG.
+
+Sistema de Streak
+
+Todo dia que cumprir a meta:
+
++1 dia na sequência.
+
+Se não cumprir:
+
+Sequência quebra.
+
+Sistema de Missões
+Diárias
+Estudar 30 min
+Resolver 10 questões
+Semanais
+Estudar 5 horas
+Resolver 100 questões
+Conquistas
+
+Exemplos:
+
+Consistência
+
+Primeiro Dia
+
+7 Dias Seguidos
+
+30 Dias Seguidos
+
+100 Dias Seguidos
+
+Questões
+
+100 Questões
+
+500 Questões
+
+1000 Questões
+
+5000 Questões
+
+Horas
+
+10 Horas
+
+50 Horas
+
+100 Horas
+
+500 Horas
+
+Sistema de Ranking
+
+Aqui está o diferencial.
+
+Você não compete contra outras pessoas.
+
+Você compete contra versões passadas de você.
+
+Exemplo:
+
+Maio
+22 horas
+
+Junho
+34 horas
+
+Julho
+41 horas
+Sistema de Check-in Diário
+
+Ao abrir o programa:
+
+Pergunta:
+
+Qual é sua missão hoje?
+
+Campo:
+
+Objetivo do dia.
+
+Exemplo:
+
+20 questões de português
+
+No final:
+
+Missão concluída?
+
+Sim ou Não.
+
+Sistema de Árvore de Conhecimento
+
+Essa é uma ideia mais avançada.
+
+Áreas:
+
+Direito Constitucional
+Direito Administrativo
+Informática
+Português
+Raciocínio Lógico
+
+Cada uma possui nível próprio.
+
+Exemplo:
+
+Português Lv.12
+
+█████████░░░░
+
+Informática Lv.24
+
+██████████████
+
+Você visualiza onde está forte e onde está fraco.
+
+Funcionalidade que eu considero genial
+
+Uma tela chamada:
+
+"Gabriel de 2030"
+
+Toda vez que abrir:
+
+Se você estudar
+1 hora por dia
+
+Até dezembro:
+
+365 horas acumuladas
+
+Estimativa:
+7.300 questões resolvidas
+
+Seu cérebro para de enxergar o estudo de hoje e começa a enxergar o impacto acumulado.
+
+##Prompt para IA construir o sistema
+
+Você pode usar isso no Lovable, Firebase Studio, Cursor ou Claude Code:
+
+Crie um aplicativo desktop chamado "Operação Sigma".
+
+Objetivo:
+Transformar o estudo para concursos em uma experiência gamificada baseada em RPG.
+
+Tecnologias:
+
+Tauri
+React
+TypeScript
+TailwindCSS
+Shadcn/UI
+SQLite
+Prisma ORM
+
+Funcionalidades:
+
+1- Dashboard principal
+Nível atual
+XP total
+Tempo estudado hoje
+Meta diária
+Sequência de dias
+Progresso da meta
+2- Sistema de XP
+1 minuto estudado = 1 XP
+Questão resolvida = 3 XP
+Questão correta = 5 XP
+Simulado concluído = 50 XP
+Meta diária concluída = 25 XP
+3- Sistema de níveis
+Progressão automática
+Barra de experiência
+Histórico de evolução
+4- Sistema de streak
+Controle de dias consecutivos
+Melhor sequência histórica
+5- Sistema de missões
+Missões diárias
+Missões semanais
+Recompensas em XP
+6- Sistema de conquistas
+Horas estudadas
+Questões resolvidas
+Dias consecutivos
+Metas cumpridas
+7- Sistema de áreas de conhecimento
+Cadastro de disciplinas
+Nível individual por disciplina
+Estatísticas por matéria
+8- Sistema de histórico
+Evolução mensal
+Evolução anual
+Gráficos de desempenho
+9- Tela "Meu Futuro"
+Projeções baseadas no ritmo atual de estudo
+Horas acumuladas
+Questões estimadas
+Crescimento ao longo do tempo
+10- Banco de dados SQLite local
+Funcionamento offline
+Persistência completa dos dados
+
+O design deve ser moderno, minimalista e inspirado em painéis de inteligência, produtividade e RPG.
