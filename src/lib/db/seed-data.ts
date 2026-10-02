@@ -1,4 +1,4 @@
-import type Database from "@tauri-apps/plugin-sql";
+import type { DatabaseClient } from "@/lib/db/database";
 import { defaultFutureTargetDate, nowIso } from "@/lib/dates";
 import { ATRF_CATALOG } from "@/lib/study-cycles/atrfCatalog";
 
@@ -112,7 +112,7 @@ const REWARDS = [
   },
 ];
 
-export async function seedDatabase(db: Database): Promise<void> {
+export async function seedDatabase(db: DatabaseClient): Promise<void> {
   const now = nowIso();
   const profiles = await db.select<{ count: number }[]>("SELECT COUNT(*) as count FROM UserProfile");
   if ((profiles[0]?.count ?? 0) === 0) {

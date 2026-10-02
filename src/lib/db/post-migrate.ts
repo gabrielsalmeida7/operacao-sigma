@@ -1,7 +1,7 @@
-import type Database from "@tauri-apps/plugin-sql";
+import type { DatabaseClient } from "@/lib/db/database";
 import { ATRF_CATALOG } from "@/lib/study-cycles/atrfCatalog";
 
-export async function runPostMigrations(db: Database): Promise<void> {
+export async function runPostMigrations(db: DatabaseClient): Promise<void> {
   const discs = await db.select<{ id: number }[]>("SELECT id FROM Discipline");
   for (const d of discs) {
     const stats = await db.select<{ resolved: number; correct: number }[]>(
@@ -29,7 +29,7 @@ export async function runPostMigrations(db: Database): Promise<void> {
   await upsertAtrfCatalog(db, concurso[0]?.id ?? null);
 }
 
-async function upsertAtrfCatalog(db: Database, concursoId: number | null): Promise<void> {
+async function upsertAtrfCatalog(db: DatabaseClient, concursoId: number | null): Promise<void> {
   const now = new Date().toISOString();
   const existing = await db.select<{ id: number; slug: string; name: string }[]>(
     "SELECT id, slug, name FROM Discipline",
